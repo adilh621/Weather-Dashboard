@@ -1,12 +1,18 @@
-console.log("hey");
+
 $(document).ready(function(){
 
+    
+
+    
+    
     $('#searchBtn').click(function(){
 
         var city = $('.form-control').val();
         var APIkey = "&APPID=8935db265b7cc0c65699dd8b71cd06b1";
-        var queryURL = "http://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + APIkey;
+        var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + APIkey;
 
+       
+        
         $.ajax({
 
             url: queryURL ,
@@ -14,7 +20,7 @@ $(document).ready(function(){
             method: "GET",
         }).then(function(data){
 
-            if(city != " "){
+            if(city != ""){
 
                 var now = moment().format('l');
                 
@@ -45,10 +51,9 @@ $(document).ready(function(){
                 $(".error").html("field empty");
             }
         })
-
         
 
-        secondQueryURL = "http://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=imperial"+APIkey;
+        secondQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=imperial"+APIkey;
         $.ajax({
 
             url: secondQueryURL ,
@@ -152,9 +157,7 @@ $(document).ready(function(){
 
         })
 
-
     })
-
 
     
 
