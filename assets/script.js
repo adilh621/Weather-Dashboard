@@ -1,27 +1,49 @@
+function initialize(){
+
+        
+        
+    var cities = localStorage.getItem("searches")
+
+    // console.log(typeof(cities))
+
+
+    $(".history").html(" ")
+    for(var i=0, len=localStorage.length; i<len; i++) {
+        var key = localStorage.key(i);
+        var value = localStorage[key];
+        
+        var atag = $("<button>");
+        var divTag = $("<div>");
+
+        console.log("looped")
+        
+        atag.text(value);
+        divTag.append(atag)
+        $(".history").append(divTag)
+    }
+   
+}
+
 
 $(document).ready(function(){
 
-    
 
     
-    
+    initialize();
+    var savedLocations = [];
+
     $('#searchBtn').click(function(){
 
         var city = $('.form-control').val();
         var APIkey = "&APPID=8935db265b7cc0c65699dd8b71cd06b1";
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + APIkey;
 
-       
-        
         $.ajax({
-
             url: queryURL ,
-            
             method: "GET",
         }).then(function(data){
 
             if(city != ""){
-
                 var now = moment().format('l');
                 
                 console.log(data);
@@ -51,7 +73,6 @@ $(document).ready(function(){
                 $(".error").html("field empty");
             }
         })
-        
 
         secondQueryURL = "https://api.openweathermap.org/data/2.5/forecast?q="+city+"&units=imperial"+APIkey;
         $.ajax({
@@ -150,17 +171,31 @@ $(document).ready(function(){
             var humidity5 = $("<p>");
             humidity5.html("Humidity:"+data.list[30].main.humidity);
             $("#five").append(humidity5);
-            
-
-
-
-
         })
+           
+        $(function(){
+            console.log(city);
+            savedLocations.push(city);
+            console.log(savedLocations);
+            localStorage.setItem(city, city);
+
+            initialize();
+        })
+
+        
+           
+    
+            
+    
+    
+    
+        
+
+
+
 
     })
 
-    
-
-
+  
 
 });
