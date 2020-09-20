@@ -1,11 +1,6 @@
 function initialize(){
 
-        
-        
     var cities = localStorage.getItem("searches")
-
-    // console.log(typeof(cities))
-
 
     $(".history").html(" ")
     for(var i=0, len=localStorage.length; i<len; i++) {
@@ -13,27 +8,24 @@ function initialize(){
         var value = localStorage[key];
         
         var atag = $("<button>");
+        atag.addClass("historyBtn")
         var divTag = $("<div>");
-
-        console.log("looped")
         
-        atag.text(value);
+        var hbutton = atag.text(value);
         divTag.append(atag)
         $(".history").append(divTag)
     }
-   
 }
 
 
 $(document).ready(function(){
 
-
-    
     initialize();
     var savedLocations = [];
-
-    $('#searchBtn').click(function(){
-
+   
+    
+   
+    function APIcall(){
         var city = $('.form-control').val();
         var APIkey = "&APPID=8935db265b7cc0c65699dd8b71cd06b1";
         var queryURL = "https://api.openweathermap.org/data/2.5/weather?q=" + city + "&units=imperial" + APIkey;
@@ -182,20 +174,6 @@ $(document).ready(function(){
             initialize();
         })
 
-        
-           
-    
-            
-    
-    
-    
-        
-
-
-
-
-    })
-
-  
+    }
 
 });
